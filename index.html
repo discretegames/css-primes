@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CSS Sieve of Eratosthenes</title>
+	<style>
+		:root {
+			--total: "500"; /* This should match the number of divs in #grid. */ 
+			--columns: 20;
+			--font: "Ubuntu";
+			
+			--font-size: 30px; /* The scale of everything is dynamic relative to font size. */
+			--title-font-size: calc(1.33 * var(--font-size));
+			--subtitle-font-size: calc(0.75 * var(--font-size));
+			--cell-size: calc(2 * var(--font-size));
+			--cell-radius: var(--cell-size);
+			--cell-gap: calc(0.5 * var(--font-size));
+			--big-cell-gap: calc(3 * var(--cell-gap));
+			--header-margin: calc(1.33 * var(--big-cell-gap));
+
+			--bg-color: hsl(222, 10%, 12%);
+			--text-color: hsl(0, 0%, 98%);
+			--prime-color: hsl(222, 40%, 40%);
+			--composite-color: hsl(222, 8%, 20%);
+		}
+
+		body {
+			text-align: center;
+			font-size: var(--font-size);
+			background: var(--bg-color);
+			font-family: var(--font), monospace;
+			color: var(--text-color);
+			counter-reset: number composites;
+		}
+
+		h1 {
+			font-size: var(--title-font-size);
+			margin-bottom: var(--header-margin);
+		}
+
+		#grid>div:nth-child(100n) {
+			margin-bottom: var(--big-cell-gap);
+		}
+
+		#grid {
+			justify-content: center;
+			display: grid;
+			grid-template-columns: repeat(var(--columns), var(--cell-size));
+			grid-gap: var(--cell-gap);
+		}
+
+		#grid>div:first-child,
+		#grid>div:nth-child(2n+4),
+		#grid>div:nth-child(3n+6),
+		#grid>div:nth-child(5n+10),
+		#grid>div:nth-child(7n+14),
+		#grid>div:nth-child(11n+22),
+		#grid>div:nth-child(13n+26),
+		#grid>div:nth-child(17n+34),
+		#grid>div:nth-child(19n+38) /* More selectors would need to be added for a higher --total. */
+		{
+			counter-increment: number composites;
+			background: var(--composite-color);
+		}
+
+		#grid>div {
+			border-radius: var(--cell-radius);
+			background: var(--prime-color);
+			height: var(--cell-size);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			counter-increment: number;
+		}
+
+		#grid>div::before {
+			content: counter(number);
+		}
+
+		.composites {
+			font-size: var(--subtitle-font-size);
+			position:absolute;
+			margin-left: auto;
+			margin-right: auto;
+			left: 0;
+			right: 0;
+			top: calc(var(--big-cell-gap) + var(--title-font-size));
+		}
+
+		.composites:before {
+			content: counter(composites);
+		}
+
+		.composites:after {
+			content: var(--total);
+		}
+
+	</style>
+</head>
+
+<body>
+	<h1>CSS Sieve of Eratosthenes</h1>
+	<div id="grid"> <!-- The number of divs in #grid should match --total. -->
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+	</div>
+	<div class="composites"> composite numbers eliminated out of </div>
+</body>
+
+</html>
