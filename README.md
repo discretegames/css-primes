@@ -1,4 +1,4 @@
-# css-primes
+# [css-primes](https://discretegames.github.io/css-primes/)
 The Sieve of Eratosthenes generated using CSS
 
 https://discretegames.github.io/css-primes
